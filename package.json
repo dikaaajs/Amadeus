@@ -1,11 +1,11 @@
 {
   "name": "toko-usaha-backend",
-  "version": "1.0.0",
-  "description": "create web service and databases",
-  "main": "index.js",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www"
   },
-  "author": "",
-  "license": "ISC"
+  "dependencies": {
+    "express": "~4.16.1"
+  }
 }
