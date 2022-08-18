@@ -2,10 +2,17 @@
   "name": "toko-usaha-backend",
   "version": "0.0.0",
   "private": true,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "nodemon ./app.js"
   },
   "dependencies": {
+    "ejs": "^3.1.8",
     "express": "~4.16.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
   }
 }
