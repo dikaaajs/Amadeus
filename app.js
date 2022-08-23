@@ -12,7 +12,7 @@ app.get('/', (req,res) => {
     res.render('index');
 })
 
-app.get('/account', (req,res) => {
+app.get('/login', (req,res) => {
     res.render('account');
 });
 
