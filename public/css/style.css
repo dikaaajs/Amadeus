@@ -29,3 +29,15 @@ p {
     background-position: center center;
     background-size: cover;
 }
+
+.box-center-abosolute {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+input{
+    direction:ltr;
+    overflow:hidden;
+}
