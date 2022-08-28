@@ -6,7 +6,8 @@
     "strings": true
   },
   "scripts": {
-    "start": "nodemon ./app.js"
+    "start": "nodemon app.js",
+    "help": "nodemon -h"
   },
   "dependencies": {
     "connect-flash": "^0.1.1",

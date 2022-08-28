@@ -3,12 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amadeus</title>
+    <title><%= tittle %> </title>
+
+    <!-- script tailwind css -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                screens: {
+                    'hp': {'max': '490px', 'min': '0px'},
+                }
+            }
+        }
+    </script>
+
+    <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arimo&family=Poppins:wght@500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <!-- custom css -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -19,7 +34,7 @@
         </div>
         <div class="w-1/2 text-right flex place-content-center align-middle h-[50px]">
             <ul class="flex justify-center gap-20 text-white h-[20px] mt-[15px]">
-                <li class=""><a href="#">Home</a></li>
+                <li class=""><a href="/">Home</a></li>
                 <li class=""><a href="#">About</a></li>
                 <li class=""><a href="#">Docs</a></li>
                 <li class=""><a href="#">Contact</a></li>
@@ -29,5 +44,48 @@
 
     <%- body %> 
     
+        <!-- footer -->
+        <section id="dark-section" class="text-center bg-gray-900 text-white">
+
+            <div class="w-[90%] top-[10rem] flex flex-row py-[8rem] mx-auto">
+                <div class="w-1/4 text-left">
+                    <h3>Support</h3>
+                    <ul class="text-left">
+                        <li><a href="">Help</a></li>
+                        <li><a href="">Advisories</a></li>
+                        <li><a href="">Status</a></li>
+                    </ul>
+                </div>
+                <div class="w-1/4 text-left">
+                    <h3>Company</h3>
+                    <ul class="text-left">
+                        <li><a href=""></a>About</li>
+                        <li><a href=""></a>Blog</li>
+                        <li><a href=""></a>Press</li>
+                    </ul>
+                </div>
+                <div class="w-1/4 text-left">
+                    <h3>Terms & Policies</h3>
+                    <ul class="text-left">
+                        <li><a href="">Policies</a></li>
+                        <li><a href=""></a>Term Of Use</li>
+                        <li><a href=""></a>Code Of Conduct</li>
+                        <li><a href=""></a>Privacy</li>
+                    </ul>
+                </div>
+                <div class="w-1/4">
+                    <h3 class="text-white text-left">follow us:</h3>
+                    <div class="mx-auto">
+                        <ul class="flex justify-left gap-3">
+                            <li class="w-[30px]"><a><img src="img/facebook.png" alt=""></a></li>
+                            <li class="w-[30px]"><a><img src="img/instagram.png" alt=""></a></li>
+                            <li class="w-[30px]"><a><img src="img/twitter.png" alt=""></a></li>
+                            <li class="w-[30px]"><a><img src="img/youtube.png" alt=""></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    
+        </section>
 </body>
 </html>

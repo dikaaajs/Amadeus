@@ -1,8 +1,12 @@
-    <div class="bg-[#5C485C] w-[100%] h-[25rem]">
+<div class="h-[30rem] bg-amber-500"></div>
+<div class="h-[30rem]"></div>
 
-    </div>
-    <div class="w-[35rem] h-[35rem] rounded mt-[5rem] text-center box-center-abosolute bg-white shadow-md">
-        <h2 class="mt-[8rem]">Login</h2>
+<div class="w-[60rem] h-[40rem] rounded-md mt-[2rem] text-center box-center-abosolute bg-white shadow-md flex">
+
+    <div class="w-1/2 rounded-l-md" id="img-login"></div>
+    <div class="w-1/2">
+        <h2 class="mt-[11rem]">Login</h2>
+        <%= msg %> 
         <form method="post" action="/login">
             <br>
             <input placeholder="username" id=" username" type="text" name="username" class="rounded border-[1px] border-black border-solid w-[250px]"><br>
@@ -11,3 +15,4 @@
         </form>
         <p class="mt-[40px]">belum punya akun ? buat akun <a href="/signup" class="text-[#0074cc]">disini</a></p>
     </div>
+</div>
