@@ -10,15 +10,11 @@
     
         <div class="w-1/2">
             <h2 class="mt-[11rem]">Signup</h2>
-            <% if (typeof errors != "undefined") { %>
-                <div class="bg-[#fecaca] text-left mx-[30px] rounded p-[15px] text-[#dc2626]">
-                    <ul>
-                        <% errors.forEach(error => { %>
-                            <li><%= error.msg %> </li>
-                        <% }) %>
-                    </ul>
-                </div>
-            <% } %>
+
+            <% if (message.length > 0) { %>
+                <div class="alert alert-danger"><%= message %></div>
+            <% } %> 
+
             <form action="/signup" method="post">
                 <br>
                 <input placeholder="username" id=" username" type="text" name="username" class="rounded border-[1px] border-black border-solid w-[250px]"><br>

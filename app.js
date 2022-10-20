@@ -1,112 +1,90 @@
-const express = require('express');
-const expressLayouts = require('express-ejs-layouts')
-const session = require('express-session');
-const cookieParser = require('cookie-parser');
-const flash = require('connect-flash');
-const {body, validationResult, check } = require('express-validator')
+const express = require("express");
+const expressLayouts = require("express-ejs-layouts");
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
+const flash = require("connect-flash");
+// const { body, validationResult, check } = require("express-validator");
 const port = 3000;
 
-// connect to databases
-require('./utils/db');
-const {User, createNewUser, cekName} = require('./model/user');
+// databases
+require("./utils/db");
+const { User, createNewUser, cekName } = require("./model/user");
 
 const app = express();
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
 
-// built-in middleware
-app.use(express.static('public')); //for set assets acess
+app.use(express.static("public")); //for set assets acess
 app.use(expressLayouts); //for layouting
-app.use(express.urlencoded({extended: true})) //for parser req.body
+app.use(express.urlencoded({ extended: true })); //for parser req.body
 
 // connect to flash
 app.use(cookieParser());
-app.use(session({
-    cookie: {maxAge: 6000},
-    secret: 'secret',
+app.use(
+  session({
+    secret: "secret",
+    cookie: { maxAge: 60000 },
     resave: true,
-    saveUninitialized: true
-}));
-app.use(flash())
+    saveUninitialized: true,
+  })
+);
+app.use(flash());
 
-app.get('/', (req,res) => {
-    res.render('index', {tittle: "Amadeus"});
-})
+app.get("/", (req, res) => {
+  console.log(req.session);
+  res.render("index", { tittle: "Amadeus" });
+});
 
-app.get('/about', (req,res) => {
-    res.send('ini adalah halaman about', {tittle: "signup"});
+app.get("/about", (req, res) => {
+  res.send("ini adalah halaman about", { tittle: "signup" });
 });
 
 // Sign-up Handler
-app.route('/signup')
-    .get((req,res) => {
-        res.render('signup', {tittle: 'signup'})
-    })
-    .post(
-        [
-            body('username').custom( async (value) => {
-                console.log(value);
-                const duplikat = await User.findOne({name: value})
-                console.log(duplikat)
-                if(duplikat){
-                    throw new Error('username sudah digunakan');
-                };
-                return true;
-            }),
-            check('email', "masukan email yg benar").isEmail(),
-            body('password', "jangan menggunakan spasi di password").custom((value) => {
-                const cekStatus = value.indexOf(" ");
-                if(cekStatus >= 1){
-                    throw new Error('jangan menggunakan spasi didalam password')
-                }
-                return true;
-            })
-        ],
-        (req,res) => {
-            // handle error
-            const errors = validationResult(req);
+app
+  .route("/signup")
+  .get((req, res) => {
+    res.render("signup", { tittle: "signup", message: req.flash("") });
+  })
+  .post(async (req, res) => {
+    const { username, email, password } = req.body;
 
-            if(!errors.isEmpty()){
-                res.render('signup',
-                    {
-                        tittle: "signup",
-                        errors: errors.array(),
-                    }
-                )
-            }else {
-                // createNewUser(req.body);
-                req.flash('msg', 'data berhasil ditambahkan')
-                res.redirect('/login')
-            }
-        }
-    )
+    // check double email
+    const user = await User.findOne({ email: req.body.email });
+    const cekUsername = await User.findOne({ username: req.body.username });
+
+    if (user !== null || cekUsername !== null) {
+      return res.redirect("/signup", {
+        message: req.flash("username atau password sudah digunakan"),
+      });
+    }
+    createNewUser(req.body);
+    res.redirect("/login");
+  });
 
 // Login Handler
-app.route('/login')
-    .get((req,res) => {
-        res.render('login',
-        {
-            tittle: 'login',
-            msg: req.flash('msg')
-        }
-        );
-    })
-    .post((req,res) => {
-        res.send(req.body);    
+app
+  .route("/login")
+  .get((req, res) => {
+    res.render("login", {
+      tittle: "login",
+      msg: req.flash("msg"),
     });
+  })
+  .post((req, res) => {
+    res.send(req.body);
+  });
 
 // debug
-app.get('/debug', async (req,res) => {
-    const user = await User.find();
-    res.send(user);
-})
-
-// error handler
-app.use('/', (req,res) => {
-    res.status(404);
-    res.send('Halaman eror');
+app.get("/debug", async (req, res) => {
+  const user = await User.find();
+  res.send(user);
 });
 
+// error handler
+app.use("/", (req, res) => {
+  res.status(404);
+  res.send("Halaman eror");
+});
 
 app.listen(port, () => {
-    console.log(`app berjalan di localhost:${port}`);
+  console.log(`app berjalan di localhost:${port}`);
 });
